@@ -1,15 +1,10 @@
-#!/Library/WebServer/Documents/venv/bin/python
-# See requirements.txt for dependencies
-import cgitb
 from collections import deque
 import io
-import os
 from pathlib import Path
 from typing import Iterator
-from urllib.parse import parse_qs, urlencode
-from xml.sax.saxutils import escape
 from docutils.core import publish_parts
 from docutils.io import FileInput
+from flask import Flask, render_template, request
 from myst_parser.parsers.docutils_ import Parser
 
 PIM_PATHS = [
@@ -17,36 +12,31 @@ PIM_PATHS = [
     # Path('~jwodder/Documents').expanduser(),
 ]
 
-HEADER = """\
-Content-type: text/html; charset=utf-8
+app = Flask(__name__)
 
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
- "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>showmark.cgi</title>
-<link rel="stylesheet" type="text/css" href="styles/kbits.css"/>
-<link rel="stylesheet" type="text/css" href="styles/kbits5.css"/>
-<script type="text/javascript" id="MathJax-script" async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-</script>
-</head>
-<body>"""
 
-FORM = """\
-<form method="get">
-<center>
-<input type="text" name="file" size="20"/>
-<input type="submit" name="action" value="Render"/>
-<input type="submit" name="action" value="List All"/>
-</center>
-</form>"""
-
-FOOTER = """\
-</body>
-</html>
-"""
+@app.get("/")
+def root() -> str:
+    fpath = request.form.get("file")
+    action = request.form.get("action", "Render")
+    writer = request.form.get("writer", "html5")
+    if not fpath:
+        return render_template("blank.html")
+    else:
+        path = Path(fpath)
+        if path.suffix not in ext2renderer:
+            # Poor man's security
+            return render_template("not-markup.html")
+        elif action == "List All":
+            return render_template("listall.html", files=[str(p) for p in pim(path)])
+        else:
+            path = next(pim(path), None)
+            if path is None:
+                return render_template("not-found.html")
+            else:
+                return render_template(
+                    "rendered.html", content=ext2renderer[path.suffix](path, writer)
+                )
 
 
 def render_markdown(path, writer):
@@ -105,40 +95,6 @@ ext2renderer = {
 }
 
 
-def main():
-    print(HEADER)
-    cgitb.enable()
-    formdata = parse_qs(os.environ.get("QUERY_STRING", ""))
-    fpath = formdata.get("file", [None])[0]
-    action = formdata.get("action", ["Render"])[0]
-    writer = formdata.get("writer", ["html5"])[0]
-    if not fpath:
-        print(FORM)
-    else:
-        path = Path(fpath)
-        if path.suffix not in ext2renderer:
-            # Poor man's security
-            print("Markup files only, please.")
-            print(FORM)
-        elif action == "List All":
-            print(FORM)
-            for p in pim(path):
-                print(
-                    '<center><a href="showmark.cgi?{}">{}</a></center>'.format(
-                        urlencode({"file": str(p)}), escape(str(p))
-                    )
-                )
-        else:
-            path = next(pim(path), None)
-            if path is None:
-                print("<tt>No such file</tt>")
-                print(FORM)
-            else:
-                print(FORM)
-                print(ext2renderer[path.suffix](path, writer))
-    print(FOOTER)
-
-
 def pim(p: Path) -> Iterator[Path]:
     if p.is_absolute():
         if p.exists():
@@ -153,7 +109,3 @@ def pim(p: Path) -> Iterator[Path]:
         for sub in sorted(dirpath.iterdir()):
             if sub.is_dir() and not sub.name.startswith("."):
                 dirs.append(sub)
-
-
-if __name__ == "__main__":
-    main()

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block above_form %}{% endblock %}
+
+{% block content %}
+{% for p in files %}
+<center><a href="{{url_for('.root', file=p)}}">{{p}}</a></center>
+{% endfor %}
+{% endblock %}
