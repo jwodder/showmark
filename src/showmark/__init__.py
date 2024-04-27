@@ -8,11 +8,12 @@ from __future__ import annotations
 from collections import deque
 from dataclasses import dataclass
 import io
+import os
 from pathlib import Path
 from typing import Iterator
 from docutils.core import publish_parts
 from docutils.io import FileInput
-from flask import Flask, render_template, request
+from flask import Flask, current_app, render_template, request
 from markupsafe import Markup
 from myst_parser.parsers.docutils_ import Parser
 
@@ -22,14 +23,11 @@ __author_email__ = "showmark@varonathe.org"
 __license__ = "MIT"
 __url__ = "https://github.com/jwodder/showmark"
 
-SEARCH_PATHS = [
-    Path("~jwodder/work").expanduser(),
-    # Path('~jwodder/Documents').expanduser(),
-]
-
-WRITER_NAME = "html5"
-
 app = Flask(__name__)
+app.config["SHOWMARK_SEARCH_PATH"] = str(Path.home())
+app.config["SHOWMARK_WRITER_NAME"] = "html5"
+if "SHOWMARK_SETTINGS" in os.environ:
+    app.config.from_envvar("SHOWMARK_SETTINGS")
 
 
 @app.get("/")
@@ -66,7 +64,7 @@ def render_markdown(path: Path) -> str:
         parts = publish_parts(
             source=fp,
             source_class=FileInput,
-            writer_name=WRITER_NAME,
+            writer_name=current_app.config["SHOWMARK_WRITER_NAME"],
             parser=Parser(),
             settings_overrides={
                 "field_name_limit": 0,
@@ -97,7 +95,7 @@ def render_restructuredtext(path: Path) -> str:
         parts = publish_parts(
             source=fp,
             source_class=FileInput,
-            writer_name=WRITER_NAME,
+            writer_name=current_app.config["SHOWMARK_WRITER_NAME"],
             settings_overrides={
                 "field_name_limit": 0,
                 "halt_level": 2,
@@ -127,7 +125,9 @@ def findfile(p: Path) -> Iterator[Path]:
         if p.exists():
             yield p
         return
-    dirs = deque(SEARCH_PATHS)
+    dirs = deque(
+        map(Path, current_app.config["SHOWMARK_SEARCH_PATH"].split(os.pathsep))
+    )
     while dirs:
         dirpath = dirs.popleft()
         path = dirpath / p
