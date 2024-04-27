@@ -6,6 +6,7 @@ Visit <https://github.com/jwodder/showmark> for more information.
 
 from __future__ import annotations
 from collections import deque
+from dataclasses import dataclass
 import io
 from pathlib import Path
 from typing import Iterator
@@ -37,19 +38,26 @@ def root() -> str:
     action = request.args.get("action", "Render")
     if not fpath:
         return render_template("blank.html")
+    path = Path(fpath)
+    if action == "List All":
+        return render_template("listall.html", files=[str(p) for p in pim(path)])
+    elif (p := next(pim(path), None)) is not None:
+        try:
+            return render_template("rendered.html", content=render(p))
+        except UnsupportedExtension as e:
+            return render_template("not-markup.html", msg=str(e))
     else:
-        path = Path(fpath)
-        if path.suffix not in ext2renderer:
-            # Poor man's security
-            return render_template("not-markup.html")
-        elif action == "List All":
-            return render_template("listall.html", files=[str(p) for p in pim(path)])
-        elif (p := next(pim(path), None)) is not None:
-            return render_template(
-                "rendered.html", content=Markup(ext2renderer[p.suffix](p))
-            )
-        else:
-            return render_template("not-found.html")
+        return render_template("not-found.html")
+
+
+def render(path: Path) -> Markup:
+    match path.suffix.lower():
+        case ".md":
+            return Markup(render_markdown(path))
+        case ".rst":
+            return Markup(render_restructuredtext(path))
+        case ext:
+            raise UnsupportedExtension(ext)
 
 
 def render_markdown(path: Path) -> str:
@@ -106,10 +114,12 @@ def render_restructuredtext(path: Path) -> str:
     return body
 
 
-ext2renderer = {
-    ".md": render_markdown,
-    ".rst": render_restructuredtext,
-}
+@dataclass
+class UnsupportedExtension(Exception):
+    ext: str
+
+    def __str__(self) -> str:
+        return f"Invalid/unsupported markup file extension: {self.ext!r}"
 
 
 def pim(p: Path) -> Iterator[Path]:
