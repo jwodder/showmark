@@ -1,0 +1,3 @@
+docutils
+myst-parser[linkify] ~= 3.0
+pygments

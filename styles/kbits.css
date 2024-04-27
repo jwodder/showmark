@@ -1,0 +1,1369 @@
+/* Styles derived from <https://github.com/readthedocs/sphinx_rtd_theme>
+ *
+ * License:
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2013-2018 Dave Snider, Read the Docs, Inc. & contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+.admonition,
+.attention,
+.caution,
+.danger,
+.error,
+.hint,
+.important,
+.note,
+.tip,
+.warning {
+    padding: 12px;
+    line-height: 24px;
+    margin-bottom: 24px;
+    background: #e7f2fa;
+    clear: both;
+}
+
+.admonition-title {
+    font-style: normal;
+    font-variant: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1;
+    text-rendering: auto;
+    display: block;
+    color: #fff;
+    background: #6ab0de;
+    padding: 6px 12px;
+    margin: -12px -12px 12px;
+}
+
+.danger,
+.error {
+    background: #fdf3f2;
+}
+
+.danger .admonition-title,
+.error .admonition-title {
+    background: #f29f97;
+}
+
+.attention,
+.caution,
+.warning {
+    background: #ffedcc;
+}
+
+.attention .admonition-title,
+.caution .admonition-title,
+.warning .admonition-title {
+    background: #f0b37e;
+}
+
+.note {
+    background: #e7f2fa;
+}
+
+.note .admonition-title {
+    background: #6ab0de;
+}
+
+.hint,
+.important,
+.tip {
+    background: #dbfaf4;
+}
+
+.hint .admonition-title,
+.important .admonition-title,
+.tip .admonition-title {
+    background: #1abc9c;
+}
+
+.admonition .last, .admonition>:last-child, .admonition p:last-child,
+.attention .last, .attention>:last-child, .attention p:last-child,
+.caution .last, .caution>:last-child, .caution p:last-child,
+.danger .last, .danger>:last-child, .danger p:last-child,
+.error .last, .error>:last-child, .error p:last-child,
+.hint .last, .hint>:last-child, .hint p:last-child,
+.important .last, .important>:last-child, .important p:last-child,
+.note .last, .note>:last-child, .note p:last-child,
+.tip .last, .tip>:last-child, .tip p:last-child,
+.warning .last, .warning>:last-child, .warning p:last-child {
+    margin-bottom: 0;
+}
+/*!
+ * @primer/css/product
+ * http://primer.style/css
+ *
+ * Released under MIT license. Copyright (c) 2019 GitHub Inc.
+ */
+
+blockquote {
+    margin-top: 0;
+    margin-bottom: 16px;
+    padding: 0 1em;
+    color: #6a737d;
+    border-left: 0.25em solid #dfe2e5;
+}
+
+blockquote > :first-child {
+    margin-top: 0;
+}
+
+blockquote > :last-child {
+    margin-bottom: 0;
+}
+/* Styles derived from <https://github.com/sphinx-doc/sphinx>
+ *
+ * Sphinx stylesheet -- basic theme.
+ *
+ * :copyright: Copyright 2007-2020 by the Sphinx team, see AUTHORS.
+ * :license: BSD, see LICENSE for details.
+ *
+ * License:
+ *
+ * License for Sphinx
+ * ==================
+ *
+ * Copyright (c) 2007-2020 by the Sphinx team (see AUTHORS file).
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are
+ * met:
+ *
+ * * Redistributions of source code must retain the above copyright
+ *   notice, this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+
+div.dedication p.topic-title,
+div.abstract p.topic-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+div.topic::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+div.topic > :last-child {
+    margin-bottom: 0;
+}
+/* From html4css1.css, part of Docutils
+ *
+ * html4css1.css license:
+ *
+ * :Author: David Goodger (goodger@python.org)
+ * :Id: $Id: html4css1.css 7952 2016-07-26 18:15:59Z milde $
+ * :Copyright: This stylesheet has been placed in the public domain.
+ */
+
+.first:not(.admonition-title):not(.sidebar-title) {
+    margin-top: 0 ! important;
+}
+
+.last,
+.with-subtitle {
+    margin-bottom: 0 ! important;
+}
+
+.hidden {
+    display: none;
+}
+
+h1 a, a.toc-backref {
+    text-decoration: none;
+    color: black ! important;
+}
+
+/*
+blockquote.epigraph {
+    margin: 2em 5em;
+}
+*/
+
+div.compound .compound-first,
+div.compound .compound-middle {
+    margin-bottom: 0.5em;
+}
+
+div.compound .compound-last,
+div.compound .compound-middle {
+    margin-top: 0.5em;
+}
+
+div.figure {
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+div.line-block {
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+div.line-block div.line-block {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 1.5em;
+}
+
+div.sidebar p.rubric {
+    /*font-family: sans-serif;*/
+    font-size: medium;
+}
+
+h1.section-subtitle,
+h2.section-subtitle,
+h3.section-subtitle,
+h4.section-subtitle,
+h5.section-subtitle,
+h6.section-subtitle {
+    margin-top: 0.4em;
+}
+
+span.section-subtitle {
+    /* font-size relative to parent (h1..h6 element) */
+    font-size: 80%;
+}
+
+p.attribution {
+    text-align: right;
+    margin-left: 50%;
+}
+
+p.caption {
+    font-style: italic;
+}
+
+p.label {
+    white-space: nowrap;
+}
+
+p.rubric {
+    font-weight: bold;
+    font-size: larger;
+    /*color: maroon;*/
+    /*text-align:center;*/
+}
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+span.option {
+    white-space: nowrap;
+}
+
+span.pre {
+    white-space: pre;
+}
+
+/* -- Alignments ------------------------------------------------------------ */
+
+img.align-left,
+.figure.align-left,
+object.align-left,
+table.align-left {
+    clear: left;
+    float: left;
+    margin-right: 1em;
+}
+
+img.align-right,
+.figure.align-right,
+object.align-right,
+table.align-right {
+    clear: right;
+    float: right;
+    margin-left: 1em;
+}
+
+img.align-center,
+.figure.align-center,
+object.align-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table.align-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* We don't want table alignment to influence text alignment, hence these are
+ * commented out.  -- jwodder
+.align-left {
+    text-align: left;
+}
+
+.align-center {
+    clear: both;
+    text-align: center;
+}
+
+.align-right {
+    text-align: right;
+}
+*/
+
+/* reset inner alignment in figures */
+div.align-right {
+    text-align: inherit;
+}
+
+.align-top {
+    vertical-align: top;
+}
+
+.align-middle {
+    vertical-align: middle;
+}
+
+.align-bottom {
+    vertical-align: bottom;
+}
+
+/* -- Table styles ---------------------------------------------------------- */
+
+/* used to remove borders from tables and images */
+.borderless,
+table.borderless tr,
+table.borderless td,
+table.borderless th {
+    border: 0;
+}
+
+table.borderless td,
+table.borderless th {
+    /* Override padding for "table.docutils td" with "! important".
+       The right padding separates the table cells. */
+    padding: 0 0.5em 0 0 ! important;
+}
+
+/* "booktabs" style (no vertical lines) */
+table.booktabs {
+    border: 0px;
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+    border-collapse: collapse;
+}
+
+table.booktabs * {
+    border: 0px;
+}
+
+table.booktabs th {
+    border-bottom: thin solid;
+    text-align: left;
+}
+
+/* -- Lists ----------------------------------------------------------------- */
+
+dl.docutils dd {
+    margin-bottom: 0.5em;
+}
+
+span.classifier {
+    /*font-family: sans-serif;*/
+    font-style: oblique;
+}
+
+span.classifier-delimiter {
+    /*font-family: sans-serif;*/
+    font-weight: bold;
+}
+
+ol.simple,
+ul.simple {
+    margin-bottom: 1em;
+}
+
+ol.arabic {
+    list-style: decimal;
+}
+
+ol.loweralpha {
+    list-style: lower-alpha;
+}
+
+ol.upperalpha {
+    list-style: upper-alpha;
+}
+
+ol.lowerroman {
+    list-style: lower-roman;
+}
+
+ol.upperroman {
+    list-style: upper-roman;
+}
+
+ul.auto-toc {
+    list-style-type: none;
+}
+
+/* -- Abstract & Dedication ------------------------------------------------- */
+
+div.abstract {
+    margin: 2em 5em;
+}
+
+div.dedication {
+    margin: 2em 5em;
+    text-align: center;
+    font-style: italic;
+}
+
+div.abstract p.topic-title,
+div.dedication p.topic-title {
+    font-weight: bold;
+    text-align: center;
+    font-style: normal;
+}
+/*!
+ * @primer/css/product
+ * http://primer.style/css
+ *
+ * Released under MIT license. Copyright (c) 2019 GitHub Inc.
+ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    line-height: 1.25;
+}
+
+h1 {
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+h1, h2:not(.listing) {
+    padding-bottom: .3em;
+    border-bottom: 1px solid #eaecef;
+}
+
+h2:not(.listing), h3, h4, h5, h6 {
+    margin-top: 24px;
+    margin-bottom: 16px;
+}
+
+h2.listing {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+h3 {
+    font-size: 1.25em;
+}
+
+h4 {
+    font-size: 1em;
+}
+
+h5 {
+    font-size: .875em;
+}
+
+h6 {
+    font-size: .85em;
+    color: #6a737d;
+}
+/*!
+ * @primer/css/core
+ * http://primer.style/css
+ *
+ * Released under MIT license. Copyright (c) 2019 GitHub Inc.
+ */
+
+kbd {
+    display: inline-block;
+    padding: 3px 5px;
+    font: 11px SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+    line-height: 10px;
+    color: #444d56;
+    vertical-align: middle;
+    background-color: #fafbfc;
+    border: 1px solid #d1d5da;
+    border-radius: 6px;
+    box-shadow: inset 0 -1px 0 #d1d5da;
+}
+
+/* BabelStone Shapes v. 13.0.1 by BabelStone
+ * <https://babelstone.co.uk/Fonts/Shapes.html>
+ * Available under the SIL Open Font License 1.1
+ */
+@font-face {
+    font-family: "BabelStone Shapes";
+    src: local("BabelStone Shapes"),
+         local("BabelStone-Shapes"),
+         url(../fonts/BabelStoneShapes.woff2) format("woff2"),
+         url(../fonts/BabelStoneShapes.woff) format("woff"),
+         url(../fonts/BabelStoneShapes.ttf) format("ttf");
+}
+
+body {
+    font-family: serif;
+    font-size: 16px;
+}
+
+tt, code, pre {
+    font-size: 80%;
+    background: #eeeeee;
+}
+
+pre code {
+    /* Don't double-up the 80% */
+    font-size: 100%;
+}
+
+pre {
+    padding: 0.5em;
+    overflow: auto;
+}
+
+a {
+    text-decoration: none;
+    color: #0000EE;
+}
+
+a:visited {
+    color: #551A8B;
+}
+
+#topbar {
+    border-bottom: 1px solid #eaecef;
+    margin-top: 0;
+    margin-bottom: 16px;
+    padding-bottom: .3em;
+}
+
+.sitename {
+    font-weight: bold;
+    line-height: 1.25;
+    font-size: 2em;
+}
+
+.sitename a {
+    text-decoration: none;
+    color: black;
+}
+
+.sitesubtitle {
+    font-weight: bold;
+    font-style: italic;
+    font-size: 1.25em;
+    margin-left: 1em;
+}
+
+#mainrow {
+    display: block;
+}
+
+#navbar {
+    float: left;
+    display: block;
+    margin-left: 1%;
+    margin-right: 1%;
+    width: 20%;
+}
+
+.menu-name {
+    font-weight: bold;
+}
+
+div.postfeeds {
+    text-align: center;
+}
+
+div.subfeeds {
+    margin: 1em 0;
+}
+
+#content {
+    float: right;
+    display: block;
+    margin-left: 1%;
+    margin-right: 1%;
+    width: 76%;
+}
+
+.summary {
+    margin-top: 1em;
+}
+
+#pagination {
+    text-align: center;
+    margin-top: 1em;
+}
+
+.paging-icon {
+    font-family: BabelStone Shapes;
+}
+
+#footer {
+    display: block;
+    clear: both;
+    text-align: center;
+    font-size: smaller;
+    padding-top: 1em;
+}
+
+#preamble-content {
+    margin-bottom: 1.5em;
+}
+
+hr {
+    width: 66%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-width: 1px 0 0 0;
+}
+
+/* If a multiparagraph footnote or citation is referenced multiple times in the
+ * document, Docutils formats it as "<em>(1, 2, …)</em> <p>Text</p> …".
+ * These styles force the `<em>` and first `<p>` to be right after each other
+ * on the same line: */
+.footnote td>p:first-of-type,
+.citation td>p:first-of-type {
+    display: inline;
+}
+
+h1 tt, h1 code,
+h2 tt, h2 code,
+h3 tt, h3 code,
+h4 tt, h4 code,
+h5 tt, h5 code,
+h6 tt, h6 code {
+    font-size: inherit;
+}
+
+h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
+    background-color: transparent;
+}
+/* "default" Pygments style with custom background color */
+
+pre.code .hll,
+code .hll,
+.highlight .hll {
+    background-color: #ffffcc;
+    display: block;
+}
+
+pre.code,
+code,
+.highlight {
+    background: /*#f8f8f8*/ #eeeeee;
+}
+
+pre.code .c,
+code .c,
+.highlight .c {
+    /* Comment */
+    color: #408080;
+    font-style: italic;
+}
+
+pre.code .err,
+code .err,
+.highlight .err {
+    /* Error */
+    border: 1px solid #FF0000;
+}
+
+pre.code .k,
+code .k,
+.highlight .k {
+    /* Keyword */
+    color: #008000;
+    font-weight: bold;
+}
+
+pre.code .o,
+code .o,
+.highlight .o {
+    /* Operator */
+    color: #666666;
+}
+
+pre.code .ch,
+code .ch,
+.highlight .ch {
+    /* Comment.Hashbang */
+    color: #408080;
+    font-style: italic;
+}
+
+pre.code .cm,
+code .cm,
+.highlight .cm {
+    /* Comment.Multiline */
+    color: #408080;
+    font-style: italic;
+}
+
+pre.code .cp,
+code .cp,
+.highlight .cp {
+    /* Comment.Preproc */
+    color: #BC7A00;
+}
+
+pre.code .cpf,
+code .cpf,
+.highlight .cpf {
+    /* Comment.PreprocFile */
+    color: #408080;
+    font-style: italic;
+}
+
+pre.code .c1,
+code .c1,
+.highlight .c1 {
+    /* Comment.Single */
+    color: #408080;
+    font-style: italic;
+}
+
+pre.code .cs,
+code .cs,
+.highlight .cs {
+    /* Comment.Special */
+    color: #408080;
+    font-style: italic;
+}
+
+pre.code .gd,
+code .gd,
+.highlight .gd {
+    /* Generic.Deleted */
+    color: #A00000;
+}
+
+pre.code .ge,
+code .ge,
+.highlight .ge {
+    /* Generic.Emph */
+    font-style: italic;
+}
+
+pre.code .gr,
+code .gr,
+.highlight .gr {
+    /* Generic.Error */
+    color: #FF0000;
+}
+
+pre.code .gh,
+code .gh,
+.highlight .gh {
+    /* Generic.Heading */
+    color: #000080;
+    font-weight: bold;
+}
+
+pre.code .gi,
+code .gi,
+.highlight .gi {
+    /* Generic.Inserted */
+    color: #00A000;
+}
+
+pre.code .go,
+code .go,
+.highlight .go {
+    /* Generic.Output */
+    color: #888888;
+}
+
+pre.code .gp,
+code .gp,
+.highlight .gp {
+    /* Generic.Prompt */
+    color: #000080;
+    font-weight: bold;
+}
+
+pre.code .gs,
+code .gs,
+.highlight .gs {
+    /* Generic.Strong */
+    font-weight: bold;
+}
+
+pre.code .gu,
+code .gu,
+.highlight .gu {
+    /* Generic.Subheading */
+    color: #800080;
+    font-weight: bold;
+}
+
+pre.code .gt,
+code .gt,
+.highlight .gt {
+    /* Generic.Traceback */
+    color: #0044DD;
+}
+
+pre.code .kc,
+code .kc,
+.highlight .kc {
+    /* Keyword.Constant */
+    color: #008000;
+    font-weight: bold;
+}
+
+pre.code .kd,
+code .kd,
+.highlight .kd {
+    /* Keyword.Declaration */
+    color: #008000;
+    font-weight: bold;
+}
+
+pre.code .kn,
+code .kn,
+.highlight .kn {
+    /* Keyword.Namespace */
+    color: #008000;
+    font-weight: bold;
+}
+
+pre.code .kp,
+code .kp,
+.highlight .kp {
+    /* Keyword.Pseudo */
+    color: #008000;
+}
+
+pre.code .kr,
+code .kr,
+.highlight .kr {
+    /* Keyword.Reserved */
+    color: #008000;
+    font-weight: bold;
+}
+
+pre.code .kt,
+code .kt,
+.highlight .kt {
+    /* Keyword.Type */
+    color: #B00040;
+}
+
+pre.code .m,
+code .m,
+.highlight .m {
+    /* Literal.Number */
+    color: #666666;
+}
+
+pre.code .s,
+code .s,
+.highlight .s {
+    /* Literal.String */
+    color: #BA2121;
+}
+
+pre.code .na,
+code .na,
+.highlight .na {
+    /* Name.Attribute */
+    color: #7D9029;
+}
+
+pre.code .nb,
+code .nb,
+.highlight .nb {
+    /* Name.Builtin */
+    color: #008000;
+}
+
+pre.code .nc,
+code .nc,
+.highlight .nc {
+    /* Name.Class */
+    color: #0000FF;
+    font-weight: bold;
+}
+
+pre.code .no,
+code .no,
+.highlight .no {
+    /* Name.Constant */
+    color: #880000;
+}
+
+pre.code .nd,
+code .nd,
+.highlight .nd {
+    /* Name.Decorator */
+    color: #AA22FF;
+}
+
+pre.code .ni,
+code .ni,
+.highlight .ni {
+    /* Name.Entity */
+    color: #999999;
+    font-weight: bold;
+}
+
+pre.code .ne,
+code .ne,
+.highlight .ne {
+    /* Name.Exception */
+    color: #D2413A;
+    font-weight: bold;
+}
+
+pre.code .nf,
+code .nf,
+.highlight .nf {
+    /* Name.Function */
+    color: #0000FF;
+}
+
+pre.code .nl,
+code .nl,
+.highlight .nl {
+    /* Name.Label */
+    color: #A0A000;
+}
+
+pre.code .nn,
+code .nn,
+.highlight .nn {
+    /* Name.Namespace */
+    color: #0000FF;
+    font-weight: bold;
+}
+
+pre.code .nt,
+code .nt,
+.highlight .nt {
+    /* Name.Tag */
+    color: #008000;
+    font-weight: bold;
+}
+
+pre.code .nv,
+code .nv,
+.highlight .nv {
+    /* Name.Variable */
+    color: #19177C;
+}
+
+pre.code .ow,
+code .ow,
+.highlight .ow {
+    /* Operator.Word */
+    color: #AA22FF;
+    font-weight: bold;
+}
+
+
+pre.code .w,
+code .w,
+.highlight .w {
+    /* Text.Whitespace */
+    color: #bbbbbb;
+}
+
+pre.code .mb,
+code .mb,
+.highlight .mb {
+    /* Literal.Number.Bin */
+    color: #666666;
+}
+
+pre.code .mf,
+code .mf,
+.highlight .mf {
+    /* Literal.Number.Float */
+    color: #666666;
+}
+
+pre.code .mh,
+code .mh,
+.highlight .mh {
+    /* Literal.Number.Hex */
+    color: #666666;
+}
+
+pre.code .mi,
+code .mi,
+.highlight .mi {
+    /* Literal.Number.Integer */
+    color: #666666;
+}
+
+pre.code .mo,
+code .mo,
+.highlight .mo {
+    /* Literal.Number.Oct */
+    color: #666666;
+}
+
+pre.code .sa,
+code .sa,
+.highlight .sa {
+    /* Literal.String.Affix */
+    color: #BA2121;
+}
+
+pre.code .sb,
+code .sb,
+.highlight .sb {
+    /* Literal.String.Backtick */
+    color: #BA2121;
+}
+
+pre.code .sc,
+code .sc,
+.highlight .sc {
+    /* Literal.String.Char */
+    color: #BA2121;
+}
+
+pre.code .dl,
+code .dl,
+.highlight .dl {
+    /* Literal.String.Delimiter */
+    color: #BA2121;
+}
+
+pre.code .sd,
+code .sd,
+.highlight .sd {
+    /* Literal.String.Doc */
+    color: #BA2121;
+    font-style: italic;
+}
+
+pre.code .s2,
+code .s2,
+.highlight .s2 {
+    /* Literal.String.Double */
+    color: #BA2121;
+}
+
+pre.code .se,
+code .se,
+.highlight .se {
+    /* Literal.String.Escape */
+    color: #BB6622;
+    font-weight: bold;
+}
+
+pre.code .sh,
+code .sh,
+.highlight .sh {
+    /* Literal.String.Heredoc */
+    color: #BA2121;
+}
+
+pre.code .si,
+code .si,
+.highlight .si {
+    /* Literal.String.Interpol */
+    color: #BB6688;
+    font-weight: bold;
+}
+
+pre.code .sx,
+code .sx,
+.highlight .sx {
+    /* Literal.String.Other */
+    color: #008000;
+}
+
+pre.code .sr,
+code .sr,
+.highlight .sr {
+    /* Literal.String.Regex */
+    color: #BB6688;
+}
+
+pre.code .s1,
+code .s1,
+.highlight .s1 {
+    /* Literal.String.Single */
+    color: #BA2121;
+}
+
+pre.code .ss,
+code .ss,
+.highlight .ss {
+    /* Literal.String.Symbol */
+    color: #19177C;
+}
+
+pre.code .bp,
+code .bp,
+.highlight .bp {
+    /* Name.Builtin.Pseudo */
+    color: #008000;
+}
+
+pre.code .fm,
+code .fm,
+.highlight .fm {
+    /* Name.Function.Magic */
+    color: #0000FF;
+}
+
+pre.code .vc,
+code .vc,
+.highlight .vc {
+    /* Name.Variable.Class */
+    color: #19177C;
+}
+
+pre.code .vg,
+code .vg,
+.highlight .vg {
+    /* Name.Variable.Global */
+    color: #19177C;
+}
+
+pre.code .vi,
+code .vi,
+.highlight .vi {
+    /* Name.Variable.Instance */
+    color: #19177C;
+}
+
+pre.code .vm,
+code .vm,
+.highlight .vm {
+    /* Name.Variable.Magic */
+    color: #19177C;
+}
+
+pre.code .il,
+code .il,
+.highlight .il {
+    /* Literal.Number.Integer.Long */
+    color: #666666;
+}
+
+table.highlighttable {
+    border-width: 0 ! important;
+    width: 100%;
+}
+
+.highlighttable tr, .highlighttable td, .highlighttable th {
+    padding: 0;
+    border-width: 0;
+}
+
+.highlighttable .special, .lineno.special {
+    font-weight: bold;
+}
+
+.lineno {
+    float: left;
+}
+/* Styles derived from <https://github.com/readthedocs/sphinx_rtd_theme>
+ *
+ * License:
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2013-2018 Dave Snider, Read the Docs, Inc. & contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+.sidebar {
+    float: right;
+    width: 40%;
+    display: block;
+    margin: 0 0 24px 24px;
+    padding: 24px;
+    background: /*#f3f6f6*/ #FFFACD;
+    border: 1px solid #e1e4e5;
+}
+
+.sidebar dl,
+.sidebar p,
+.sidebar ul {
+    font-size: 90%;
+}
+.sidebar .last,
+.sidebar>:last-child {
+    margin-bottom: 0;
+}
+
+.sidebar .sidebar-title {
+    display: block;
+    /*font-family: Roboto Slab,ff-tisa-web-pro,Georgia,Arial,sans-serif;*/
+    font-weight: bold;
+    background: /*#e1e4e5*/ #FEF49C;
+    padding: 6px 12px;
+    margin: -24px -24px 24px;
+    font-size: 100%;
+}
+
+.sidebar .sidebar-subtitle {
+    font-weight: bold;
+}
+/*!
+ * @primer/css/product
+ * http://primer.style/css
+ *
+ * Released under MIT license. Copyright (c) 2019 GitHub Inc.
+ */
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin-top: 0;
+    margin-bottom: 16px;
+    /*display: block;*/
+    /*width: 100%;*/
+    overflow: auto;
+}
+
+table th {
+    font-weight: bold;
+}
+
+table td, table th {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+table tr {
+    background-color: #fff;
+    border-top: 1px solid #c6cbd1;
+}
+
+table tbody tr:nth-child(2n) {
+    background-color: #f6f8fa;
+}
+
+/* Customizations */
+
+table:not(.footnote):not(.citation):not(.booktabs):not(.borderless) {
+    border-style: solid;
+    border-width: 1px;
+}
+/* Styles derived from <https://github.com/pallets/pallets-sphinx-themes>
+ *
+ * License:
+ *
+ * Copyright 2007 Pallets
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are
+ * met:
+ *
+ * 1.  Redistributions of source code must retain the above copyright
+ *     notice, this list of conditions and the following disclaimer.
+ *
+ * 2.  Redistributions in binary form must reproduce the above copyright
+ *     notice, this list of conditions and the following disclaimer in the
+ *     documentation and/or other materials provided with the distribution.
+ *
+ * 3.  Neither the name of the copyright holder nor the names of its
+ *     contributors may be used to endorse or promote products derived from
+ *     this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+div.topic:not(.dedication):not(.abstract) {
+    background-color: #fafafa;
+    margin: 10px -10px;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+    border-left: none;
+}
+
+div.topic:not(.dedication):not(.abstract) p.topic-title {
+    font-weight: normal;
+    font-size: /*24px*/ 1.5em;
+    margin: 0 0 10px 0;
+    padding: 0;
+    line-height: 1;
+    display: inline;
+}
