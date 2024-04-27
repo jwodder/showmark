@@ -28,6 +28,7 @@ app.config["SHOWMARK_SEARCH_PATH"] = str(Path.home())
 app.config["SHOWMARK_WRITER_NAME"] = "html5"
 if "SHOWMARK_SETTINGS" in os.environ:
     app.config.from_envvar("SHOWMARK_SETTINGS")
+app.config.from_prefixed_env()
 
 
 @app.get("/")
