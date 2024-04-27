@@ -12,6 +12,7 @@ from typing import Iterator
 from docutils.core import publish_parts
 from docutils.io import FileInput
 from flask import Flask, render_template, request
+from markupsafe import Markup
 from myst_parser.parsers.docutils_ import Parser
 
 __version__ = "0.1.0.dev1"
@@ -30,9 +31,9 @@ app = Flask(__name__)
 
 @app.get("/")
 def root() -> str:
-    fpath = request.form.get("file")
-    action = request.form.get("action", "Render")
-    writer = request.form.get("writer", "html5")
+    fpath = request.args.get("file")
+    action = request.args.get("action", "Render")
+    writer = request.args.get("writer", "html5")
     if not fpath:
         return render_template("blank.html")
     else:
@@ -44,7 +45,7 @@ def root() -> str:
             return render_template("listall.html", files=[str(p) for p in pim(path)])
         elif (p := next(pim(path), None)) is not None:
             return render_template(
-                "rendered.html", content=ext2renderer[p.suffix](p, writer)
+                "rendered.html", content=Markup(ext2renderer[p.suffix](p, writer))
             )
         else:
             return render_template("not-found.html")
