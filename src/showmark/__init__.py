@@ -26,6 +26,8 @@ PIM_PATHS = [
     # Path('~jwodder/Documents').expanduser(),
 ]
 
+WRITER_NAME = "html5"
+
 app = Flask(__name__)
 
 
@@ -33,7 +35,6 @@ app = Flask(__name__)
 def root() -> str:
     fpath = request.args.get("file")
     action = request.args.get("action", "Render")
-    writer = request.args.get("writer", "html5")
     if not fpath:
         return render_template("blank.html")
     else:
@@ -45,19 +46,19 @@ def root() -> str:
             return render_template("listall.html", files=[str(p) for p in pim(path)])
         elif (p := next(pim(path), None)) is not None:
             return render_template(
-                "rendered.html", content=Markup(ext2renderer[p.suffix](p, writer))
+                "rendered.html", content=Markup(ext2renderer[p.suffix](p))
             )
         else:
             return render_template("not-found.html")
 
 
-def render_markdown(path: Path, writer: str) -> str:
+def render_markdown(path: Path) -> str:
     warnings = io.StringIO()
     with path.open(encoding="utf-8") as fp:
         parts = publish_parts(
             source=fp,
             source_class=FileInput,
-            writer_name=writer,
+            writer_name=WRITER_NAME,
             parser=Parser(),
             settings_overrides={
                 "field_name_limit": 0,
@@ -82,13 +83,13 @@ def render_markdown(path: Path, writer: str) -> str:
     return body
 
 
-def render_restructuredtext(path: Path, writer: str) -> str:
+def render_restructuredtext(path: Path) -> str:
     warnings = io.StringIO()
     with path.open(encoding="utf-8") as fp:
         parts = publish_parts(
             source=fp,
             source_class=FileInput,
-            writer_name=writer,
+            writer_name=WRITER_NAME,
             settings_overrides={
                 "field_name_limit": 0,
                 "halt_level": 2,
