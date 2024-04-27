@@ -4,12 +4,7 @@ Serve rendered markup documents
 Visit <https://github.com/jwodder/showmark> for more information.
 """
 
-__version__ = "0.1.0.dev1"
-__author__ = "John Thorvald Wodder II"
-__author_email__ = "showmark@varonathe.org"
-__license__ = "MIT"
-__url__ = "https://github.com/jwodder/showmark"
-
+from __future__ import annotations
 from collections import deque
 import io
 from pathlib import Path
@@ -18,6 +13,12 @@ from docutils.core import publish_parts
 from docutils.io import FileInput
 from flask import Flask, render_template, request
 from myst_parser.parsers.docutils_ import Parser
+
+__version__ = "0.1.0.dev1"
+__author__ = "John Thorvald Wodder II"
+__author_email__ = "showmark@varonathe.org"
+__license__ = "MIT"
+__url__ = "https://github.com/jwodder/showmark"
 
 PIM_PATHS = [
     Path("~jwodder/work").expanduser(),
@@ -41,17 +42,15 @@ def root() -> str:
             return render_template("not-markup.html")
         elif action == "List All":
             return render_template("listall.html", files=[str(p) for p in pim(path)])
+        elif (p := next(pim(path), None)) is not None:
+            return render_template(
+                "rendered.html", content=ext2renderer[p.suffix](p, writer)
+            )
         else:
-            path = next(pim(path), None)
-            if path is None:
-                return render_template("not-found.html")
-            else:
-                return render_template(
-                    "rendered.html", content=ext2renderer[path.suffix](path, writer)
-                )
+            return render_template("not-found.html")
 
 
-def render_markdown(path, writer):
+def render_markdown(path: Path, writer: str) -> str:
     warnings = io.StringIO()
     with path.open(encoding="utf-8") as fp:
         parts = publish_parts(
@@ -77,10 +76,12 @@ def render_markdown(path, writer):
             },
         )
     ### TODO: Do something with `warnings`!
-    return parts["html_body"]
+    body = parts["html_body"]
+    assert isinstance(body, str)
+    return body
 
 
-def render_restructuredtext(path, writer):
+def render_restructuredtext(path: Path, writer: str) -> str:
     warnings = io.StringIO()
     with path.open(encoding="utf-8") as fp:
         parts = publish_parts(
@@ -98,7 +99,9 @@ def render_restructuredtext(path, writer):
             },
         )
     ### TODO: Do something with `warnings`!
-    return parts["html_body"]
+    body = parts["html_body"]
+    assert isinstance(body, str)
+    return body
 
 
 ext2renderer = {
