@@ -58,6 +58,9 @@ include = [
 [tool.hatch.envs.local.scripts]
 run = "flask --app showmark:app run -p 8080"
 
+[tool.hatch.envs.local.env-vars]
+FLASK_SHOWMARK_SEARCH_PATH = "{home}/work"
+
 [tool.mypy]
 allow_incomplete_defs = false
 allow_untyped_defs = false
