@@ -22,7 +22,7 @@ __author_email__ = "showmark@varonathe.org"
 __license__ = "MIT"
 __url__ = "https://github.com/jwodder/showmark"
 
-PIM_PATHS = [
+SEARCH_PATHS = [
     Path("~jwodder/work").expanduser(),
     # Path('~jwodder/Documents').expanduser(),
 ]
@@ -40,8 +40,8 @@ def root() -> str:
         return render_template("blank.html")
     path = Path(fpath)
     if action == "List All":
-        return render_template("listall.html", files=[str(p) for p in pim(path)])
-    elif (p := next(pim(path), None)) is not None:
+        return render_template("listall.html", files=[str(p) for p in findfile(path)])
+    elif (p := next(findfile(path), None)) is not None:
         try:
             return render_template("rendered.html", content=render(p))
         except UnsupportedExtension as e:
@@ -122,12 +122,12 @@ class UnsupportedExtension(Exception):
         return f"Invalid/unsupported markup file extension: {self.ext!r}"
 
 
-def pim(p: Path) -> Iterator[Path]:
+def findfile(p: Path) -> Iterator[Path]:
     if p.is_absolute():
         if p.exists():
             yield p
         return
-    dirs = deque(PIM_PATHS)
+    dirs = deque(SEARCH_PATHS)
     while dirs:
         dirpath = dirs.popleft()
         path = dirpath / p
