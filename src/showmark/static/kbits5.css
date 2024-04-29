@@ -27,6 +27,46 @@ pre.code, code { background-color: #eeeeee }
   margin-bottom: 0;
 }
 
+/* Definition Lists and Derivatives */
+dt .classifier { font-style: italic }
+dt .classifier:before {
+  font-style: normal;
+  margin: 0.5em;
+  content: ":";
+}
+
+/* Field Lists and similar */
+/* bold field name, content starts on the same line */
+dl.field-list > dt,
+dl.option-list > dt,
+dl.docinfo > dt {
+  font-weight: bold;
+  /*clear: left;*/
+  /*float: left;*/
+  margin: 0;
+  padding: 0;
+  padding-right: 0.25em;
+}
+dl.field-list > dd > *:first-child,
+dl.option-list > dd > *:first-child,
+dl.docinfo > dd > *:first-child
+{
+  /*display: inline-block;*/
+  width: 100%;
+  margin: 0;
+}
+
+/* Bibliographic Fields (docinfo) */
+dl.docinfo pre.address {
+  font: inherit;
+  margin: 0.5em 0;
+}
+dl.docinfo > dd.authors > p { margin: 0; }
+
+/* Option Lists */
+dl.option-list > dt { font-weight: normal; }
+span.option { white-space: nowrap; }
+
 /* Footnotes and Citations  */
 
 .footnote, .citation { margin: 1em 0; } /* default paragraph skip (Firefox) */
@@ -159,4 +199,16 @@ aside.topic p.topic-title {
     padding: 0;
     line-height: 1;
     display: inline;
+}
+
+dl.field-list, dl.docinfo {
+    display: grid;
+    grid-template-columns: max-content auto;
+}
+dl.field-list > dt, dl.docinfo > dt {
+    grid-column-start: 1;
+}
+dl.field-list > dd, dl.docinfo > dd {
+    grid-column-start: 2;
+    margin-inline-start: 1em;
 }
