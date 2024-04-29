@@ -7,7 +7,6 @@ Visit <https://github.com/jwodder/showmark> for more information.
 from __future__ import annotations
 from collections import deque
 from dataclasses import dataclass
-import io
 import os
 from pathlib import Path
 from typing import Iterator
@@ -63,7 +62,6 @@ def render(path: Path) -> Markup:
 
 
 def render_markdown(path: Path) -> str:
-    warnings = io.StringIO()
     with path.open(encoding="utf-8") as fp:
         parts = publish_parts(
             source=fp,
@@ -76,7 +74,9 @@ def render_markdown(path: Path) -> str:
                 "input_encoding": "utf-8",
                 "math_output": "mathjax irrelevant-value",
                 "syntax_highlight": "short",
-                "warning_stream": warnings,
+                # `halt_level=2` plus the default setting of `report_level=2`
+                # means that no warnings will ever be emitted:
+                "warning_stream": os.devnull,
                 "myst_suppress_warnings": ["myst.header"],
                 "myst_enable_extensions": [
                     "dollarmath",
@@ -87,15 +87,12 @@ def render_markdown(path: Path) -> str:
                 ],
             },
         )
-    # `warnings` can be discarded, as `halt_level=2` plus the default setting
-    # of `report_level=2` means that no warnings will ever be emitted.
     body = parts["html_body"]
     assert isinstance(body, str)
     return body
 
 
 def render_restructuredtext(path: Path) -> str:
-    warnings = io.StringIO()
     with path.open(encoding="utf-8") as fp:
         parts = publish_parts(
             source=fp,
@@ -108,11 +105,11 @@ def render_restructuredtext(path: Path) -> str:
                 "math_output": "mathjax irrelevant-value",
                 "smart_quotes": True,
                 "syntax_highlight": "short",
-                "warning_stream": warnings,
+                # `halt_level=2` plus the default setting of `report_level=2`
+                # means that no warnings will ever be emitted:
+                "warning_stream": os.devnull,
             },
         )
-    # `warnings` can be discarded, as `halt_level=2` plus the default setting
-    # of `report_level=2` means that no warnings will ever be emitted.
     body = parts["html_body"]
     assert isinstance(body, str)
     return body
