@@ -122,13 +122,14 @@ class UnsupportedExtension(Exception):
 
 
 def findfile(p: Path) -> Iterator[Path]:
-    if p.is_absolute():
-        if p.exists():
-            yield p
-        return
-    dirs = deque(
+    search_paths = list(
         map(Path, current_app.config["SHOWMARK_SEARCH_PATH"].split(os.pathsep))
     )
+    if p.is_absolute():
+        if p.exists() and any(p.is_relative_to(sp) for sp in search_paths):
+            yield p
+        return
+    dirs = deque(search_paths)
     while dirs:
         dirpath = dirs.popleft()
         path = dirpath / p
