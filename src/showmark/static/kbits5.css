@@ -1,5 +1,15 @@
 /* -- Taken from docutils' HTML5 stylesheets: ------------------------------- */
 
+p.subtitle,
+p.section-subtitle,
+p.sidebar-subtitle {
+  font-weight: bold;
+  margin-top: -0.5em;
+}
+h1 + p.subtitle {
+  font-size: 1.6em;
+}
+
 /* Inline Literals */
 .docutils.literal {
   font-family: monospace;
