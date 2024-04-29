@@ -75,8 +75,9 @@ def render_markdown(path: Path) -> str:
                 "math_output": "mathjax irrelevant-value",
                 "syntax_highlight": "short",
                 # `halt_level=2` plus the default setting of `report_level=2`
-                # means that no warnings will ever be emitted:
-                "warning_stream": os.devnull,
+                # means that no warnings will ever be emitted, so just disable
+                # them:
+                "warning_stream": False,
                 "myst_suppress_warnings": ["myst.header"],
                 "myst_enable_extensions": [
                     "dollarmath",
@@ -106,8 +107,9 @@ def render_restructuredtext(path: Path) -> str:
                 "smart_quotes": True,
                 "syntax_highlight": "short",
                 # `halt_level=2` plus the default setting of `report_level=2`
-                # means that no warnings will ever be emitted:
-                "warning_stream": os.devnull,
+                # means that no warnings will ever be emitted, so just disable
+                # them:
+                "warning_stream": False,
             },
         )
     body = parts["html_body"]
