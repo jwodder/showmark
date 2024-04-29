@@ -47,8 +47,9 @@ running ``hatch run local:run``.  This sets ``SHOWMARK_SEARCH_PATH`` to
 Installation on macOS
 =====================
 
-``showmark`` was installed on macOS Sonoma as follows, resulting in it being
-proxied by the built-in Apache server at <http://localhost/showmark>:
+``showmark`` was successfully installed on a macOS Sonoma system as follows,
+resulting in it being served by the built-in Apache server (already enabled) at
+<http://localhost/showmark>:
 
 - Install `uwsgi <https://uwsgi-docs.readthedocs.io/en/latest/>`_ via Homebrew:
   ``brew install uwsgi``
@@ -65,12 +66,12 @@ proxied by the built-in Apache server at <http://localhost/showmark>:
     [uwsgi]
     plugin = python3
     socket = /tmp/org.varonathe.showmark.sock
+    # Replace the below with your own search path:
     env = FLASK_SHOWMARK_SEARCH_PATH=/Users/jwodder/work
     module = showmark:app
     virtualenv = /Library/WebServer/Documents/venvs/showmark
     manage-script-name = true
     need-app = true
-
     master = true
     processes = 2
     threads = 5
