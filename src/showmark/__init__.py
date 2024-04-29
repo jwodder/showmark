@@ -87,7 +87,8 @@ def render_markdown(path: Path) -> str:
                 ],
             },
         )
-    ### TODO: Do something with `warnings`!
+    # `warnings` can be discarded, as `halt_level=2` plus the default setting
+    # of `report_level=2` means that no warnings will ever be emitted.
     body = parts["html_body"]
     assert isinstance(body, str)
     return body
@@ -110,7 +111,8 @@ def render_restructuredtext(path: Path) -> str:
                 "warning_stream": warnings,
             },
         )
-    ### TODO: Do something with `warnings`!
+    # `warnings` can be discarded, as `halt_level=2` plus the default setting
+    # of `report_level=2` means that no warnings will ever be emitted.
     body = parts["html_body"]
     assert isinstance(body, str)
     return body
