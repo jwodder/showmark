@@ -7,6 +7,7 @@ Visit <https://github.com/jwodder/showmark> for more information.
 from __future__ import annotations
 from collections import deque
 from dataclasses import dataclass
+from importlib.metadata import version
 import os
 from pathlib import Path
 from typing import Iterator
@@ -17,7 +18,7 @@ from flask import Flask, current_app, render_template, request
 from markupsafe import Markup
 from myst_parser.parsers.docutils_ import Parser
 
-__version__ = "0.1.0.dev1"
+__version__ = version("showmark")
 __author__ = "John Thorvald Wodder II"
 __author_email__ = "showmark@varonathe.org"
 __license__ = "MIT"

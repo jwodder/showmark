@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "versioningit"]
 build-backend = "hatchling.build"
 
 [project]
@@ -47,7 +47,7 @@ dependencies = [
 "Bug Tracker" = "https://github.com/jwodder/showmark/issues"
 
 [tool.hatch.version]
-path = "src/showmark/__init__.py"
+source = "versioningit"
 
 [tool.hatch.build.targets.sdist]
 include = [
