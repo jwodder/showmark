@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Iterator
 from docutils.core import publish_parts
 from docutils.io import FileInput
+from docutils.utils import SystemMessage
 from flask import Flask, current_app, render_template, request
 from markupsafe import Markup
 from myst_parser.parsers.docutils_ import Parser
@@ -45,6 +46,8 @@ def root() -> str:
             return render_template("rendered.html", content=render(p))
         except UnsupportedExtension as e:
             return render_template("not-markup.html", msg=str(e))
+        except SystemMessage as e:
+            return render_template("rendering-error.html", msg=str(e))
     else:
         return render_template("not-found.html")
 
