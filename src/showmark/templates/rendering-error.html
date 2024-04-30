@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block above_form %}
-<h2 style="color: red">Error</h2>
+<h2 style="color: red">Error Rendering File</h2>
+<div><strong>Path:</strong> <code>{{path}}</code></div>
+<div><strong>Message:</strong></div>
 <pre><code>{{msg}}</code></pre>
 {% endblock %}
 

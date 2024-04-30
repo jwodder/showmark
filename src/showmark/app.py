@@ -30,10 +30,10 @@ def root() -> str:
         except NotFound:
             return render_template("not-found.html")
         except UnsupportedExtension as e:
-            return render_template("not-markup.html", msg=str(e))
+            return render_template("not-markup.html", path=e.path)
         except ReadError as e:
             return render_template("read-error.html", path=e.path, msg=str(e.inner))
         except RenderError as e:
-            return render_template("rendering-error.html", msg=str(e))
+            return render_template("rendering-error.html", path=e.path, msg=e.msg)
         else:
             return render_template("rendered.html", content=content)

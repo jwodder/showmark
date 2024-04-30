@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
-{% block above_form %}<code>{{msg}}</code>{% endblock %}
+{% block above_form %}
+<div><strong>Unsupported/invalid markup file extension:</strong> <code>{{path}}</code></div>
+{% endblock %}
 
 {% block content %}{% endblock %}

@@ -63,8 +63,8 @@ class Showmark:
         return self.ext.findfile(path)
 
     def find_and_render(self, path: Path) -> str:
-        if (ext := path.suffix.lower()) not in Extension.RENDERERS:
-            raise UnsupportedExtension(ext)
+        if path.suffix.lower() not in Extension.RENDERERS:
+            raise UnsupportedExtension(path)
         x = self.ext
         if (p := next(x.findfile(path), None)) is not None:
             return x.render(p)
@@ -122,7 +122,7 @@ class Extension:
         try:
             renderer = self.RENDERERS[ext]
         except KeyError:
-            raise UnsupportedExtension(ext)
+            raise UnsupportedExtension(path)
         else:
             return renderer(self, path)
 
@@ -161,7 +161,7 @@ class Extension:
         except (OSError, UnicodeDecodeError) as e:
             raise ReadError(path=path, inner=e)
         except SystemMessage as e:
-            raise RenderError(msg=str(e))
+            raise RenderError(path=path, msg=str(e))
         body = parts["html_body"]
         assert isinstance(body, str)
         return Markup(body)
@@ -181,18 +181,19 @@ class NotFound(Exception):
 
 @dataclass
 class UnsupportedExtension(Exception):
-    ext: str
+    path: Path
 
     def __str__(self) -> str:
-        return f"Invalid/unsupported markup file extension: {self.ext!r}"
+        return f"Unsupported/invalid markup file extension: {self.path}"
 
 
 @dataclass
 class RenderError(Exception):
+    path: Path
     msg: str
 
     def __str__(self) -> str:
-        return self.msg
+        return f"{self.path}: {self.msg}"
 
 
 @dataclass
