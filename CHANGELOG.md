@@ -1,5 +1,5 @@
-In Development
---------------
+v2024.4.30
+----------
 - Rewrote the searching & rendering functionality as a Flask extension
 - Show package source link & version at bottom of application page
 - Ignore non-files that match the input path
