@@ -10,12 +10,12 @@ Visit <https://github.com/jwodder/showmark> for more information.
 
 from __future__ import annotations
 from collections import deque
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 from dataclasses import dataclass
 from importlib.metadata import version
 import os
 from pathlib import Path
-from typing import Any
+from typing import Any, ClassVar
 from docutils.core import publish_parts
 from docutils.io import FileInput
 from docutils.parsers import Parser
@@ -63,6 +63,8 @@ class Showmark:
         return self.ext.findfile(path)
 
     def find_and_render(self, path: Path) -> str:
+        if (ext := path.suffix.lower()) not in Extension.RENDERERS:
+            raise UnsupportedExtension(ext)
         x = self.ext
         if (p := next(x.findfile(path), None)) is not None:
             return x.render(p)
@@ -72,6 +74,8 @@ class Showmark:
 
 @dataclass
 class Extension:
+    RENDERERS: ClassVar[dict[str, Callable[[Extension, Path], Markup]]] = {}
+
     search_paths: list[Path]
     writer_name: str
 
@@ -98,18 +102,18 @@ class Extension:
                     dirs.append(sub)
 
     def render(self, path: Path) -> Markup:
-        match path.suffix.lower():
-            case ".rst":
-                return Markup(self.render_restructuredtext(path))
-            case ".md":
-                return Markup(self.render_markdown(path))
-            case ext:
-                raise UnsupportedExtension(ext)
+        ext = path.suffix.lower()
+        try:
+            renderer = self.RENDERERS[ext]
+        except KeyError:
+            raise UnsupportedExtension(ext)
+        else:
+            return renderer(self, path)
 
-    def render_restructuredtext(self, path: Path) -> str:
+    def render_restructuredtext(self, path: Path) -> Markup:
         return self.inner_render(path, settings=BASE_SETTINGS | {"smart_quotes": True})
 
-    def render_markdown(self, path: Path) -> str:
+    def render_markdown(self, path: Path) -> Markup:
         return self.inner_render(
             path,
             parser=MdParser(),
@@ -128,7 +132,7 @@ class Extension:
 
     def inner_render(
         self, path: Path, *, parser: Parser | None = None, settings: dict[str, Any]
-    ) -> str:
+    ) -> Markup:
         with path.open(encoding="utf-8") as fp:
             try:
                 parts = publish_parts(
@@ -142,7 +146,11 @@ class Extension:
                 raise RenderError(msg=str(e))
         body = parts["html_body"]
         assert isinstance(body, str)
-        return body
+        return Markup(body)
+
+
+Extension.RENDERERS[".md"] = Extension.render_markdown
+Extension.RENDERERS[".rst"] = Extension.render_restructuredtext
 
 
 @dataclass
