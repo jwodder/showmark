@@ -5,18 +5,11 @@ Visit <https://github.com/jwodder/showmark> for more information.
 """
 
 from __future__ import annotations
-from collections import deque
-from dataclasses import dataclass
 from importlib.metadata import version
 import os
 from pathlib import Path
-from typing import Iterator
-from docutils.core import publish_parts
-from docutils.io import FileInput
-from docutils.utils import SystemMessage
-from flask import Flask, current_app, render_template, request
-from markupsafe import Markup
-from myst_parser.parsers.docutils_ import Parser
+from flask import Flask, render_template, request
+from .ext import NotFound, RenderError, Showmark, UnsupportedExtension
 
 __version__ = version("showmark")
 __author__ = "John Thorvald Wodder II"
@@ -31,6 +24,9 @@ if "SHOWMARK_SETTINGS" in os.environ:
     app.config.from_envvar("SHOWMARK_SETTINGS")
 app.config.from_prefixed_env()
 
+sm = Showmark()
+sm.init_app(app)
+
 
 @app.get("/")
 def root() -> str:
@@ -40,106 +36,15 @@ def root() -> str:
         return render_template("blank.html")
     path = Path(fpath)
     if action == "List All":
-        return render_template("listall.html", files=[str(p) for p in findfile(path)])
-    elif (p := next(findfile(path), None)) is not None:
+        return render_template("listall.html", files=[str(p) for p in sm.findall(path)])
+    else:
         try:
-            return render_template("rendered.html", content=render(p))
+            content = sm.find_and_render(path)
+        except NotFound:
+            return render_template("not-found.html")
         except UnsupportedExtension as e:
             return render_template("not-markup.html", msg=str(e))
-        except SystemMessage as e:
+        except RenderError as e:
             return render_template("rendering-error.html", msg=str(e))
-    else:
-        return render_template("not-found.html")
-
-
-def render(path: Path) -> Markup:
-    match path.suffix.lower():
-        case ".md":
-            return Markup(render_markdown(path))
-        case ".rst":
-            return Markup(render_restructuredtext(path))
-        case ext:
-            raise UnsupportedExtension(ext)
-
-
-def render_markdown(path: Path) -> str:
-    with path.open(encoding="utf-8") as fp:
-        parts = publish_parts(
-            source=fp,
-            source_class=FileInput,
-            writer_name=current_app.config["SHOWMARK_WRITER_NAME"],
-            parser=Parser(),
-            settings_overrides={
-                "field_name_limit": 0,
-                "halt_level": 2,
-                "input_encoding": "utf-8",
-                "math_output": "mathjax irrelevant-value",
-                "syntax_highlight": "short",
-                # `halt_level=2` plus the default setting of `report_level=2`
-                # means that no warnings will ever be emitted, so just disable
-                # them:
-                "warning_stream": False,
-                "myst_suppress_warnings": ["myst.header"],
-                "myst_enable_extensions": [
-                    "dollarmath",
-                    "smartquotes",
-                    "replacements",
-                    "linkify",
-                    "deflist",
-                ],
-            },
-        )
-    body = parts["html_body"]
-    assert isinstance(body, str)
-    return body
-
-
-def render_restructuredtext(path: Path) -> str:
-    with path.open(encoding="utf-8") as fp:
-        parts = publish_parts(
-            source=fp,
-            source_class=FileInput,
-            writer_name=current_app.config["SHOWMARK_WRITER_NAME"],
-            settings_overrides={
-                "field_name_limit": 0,
-                "halt_level": 2,
-                "input_encoding": "utf-8",
-                "math_output": "mathjax irrelevant-value",
-                "smart_quotes": True,
-                "syntax_highlight": "short",
-                # `halt_level=2` plus the default setting of `report_level=2`
-                # means that no warnings will ever be emitted, so just disable
-                # them:
-                "warning_stream": False,
-            },
-        )
-    body = parts["html_body"]
-    assert isinstance(body, str)
-    return body
-
-
-@dataclass
-class UnsupportedExtension(Exception):
-    ext: str
-
-    def __str__(self) -> str:
-        return f"Invalid/unsupported markup file extension: {self.ext!r}"
-
-
-def findfile(p: Path) -> Iterator[Path]:
-    search_paths = list(
-        map(Path, current_app.config["SHOWMARK_SEARCH_PATH"].split(os.pathsep))
-    )
-    if p.is_absolute():
-        if p.exists() and any(p.is_relative_to(sp) for sp in search_paths):
-            yield p
-        return
-    dirs = deque(search_paths)
-    while dirs:
-        dirpath = dirs.popleft()
-        path = dirpath / p
-        if path.exists():
-            yield path
-        for sub in sorted(dirpath.iterdir()):
-            if sub.is_dir() and not sub.name.startswith("."):
-                dirs.append(sub)
+        else:
+            return render_template("rendered.html", content=content)
