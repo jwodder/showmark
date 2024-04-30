@@ -7,6 +7,7 @@ In Development
 - The text field is now "sticky"
 - Ignore filesystem errors that occur while traversing directories
 - Catch errors from opening or reading files
+- Added basic tests of the views
 
 v2024.4.29
 ----------

@@ -1,21 +1,29 @@
 from __future__ import annotations
 import os
 from pathlib import Path
-from flask import Flask, render_template, request
+from typing import Any
+from flask import Blueprint, Flask, render_template, request
 from . import NotFound, ReadError, RenderError, Showmark, UnsupportedExtension
 
-app = Flask(__name__)
-app.config["SHOWMARK_SEARCH_PATH"] = str(Path.home())
-app.config["SHOWMARK_WRITER_NAME"] = "html5"
-if "SHOWMARK_SETTINGS" in os.environ:
-    app.config.from_envvar("SHOWMARK_SETTINGS")
-app.config.from_prefixed_env()
+views = Blueprint("views", __name__)
 
 sm = Showmark()
-sm.init_app(app)
 
 
-@app.get("/")
+def create_app(**kwargs: Any) -> Flask:
+    app = Flask(__name__)
+    app.config["SHOWMARK_SEARCH_PATH"] = str(Path.home())
+    app.config["SHOWMARK_WRITER_NAME"] = "html5"
+    if "SHOWMARK_SETTINGS" in os.environ:
+        app.config.from_envvar("SHOWMARK_SETTINGS")
+    app.config.from_prefixed_env()
+    app.config.update(kwargs)
+    app.register_blueprint(views)
+    sm.init_app(app)
+    return app
+
+
+@views.get("/")
 def root() -> str:
     fpath = request.args.get("file")
     action = request.args.get("action", "View")

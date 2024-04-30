@@ -1,4 +1,4 @@
-|repostatus| |ci-status| |license|
+|repostatus| |ci-status| |coverage| |license|
 
 .. |repostatus| image:: https://www.repostatus.org/badges/latest/concept.svg
     :target: https://www.repostatus.org/#concept
@@ -9,6 +9,9 @@
 .. |ci-status| image:: https://github.com/jwodder/showmark/actions/workflows/test.yml/badge.svg
     :target: https://github.com/jwodder/showmark/actions/workflows/test.yml
     :alt: CI Status
+
+.. |coverage| image:: https://codecov.io/gh/jwodder/showmark/branch/main/graph/badge.svg
+    :target: https://codecov.io/gh/jwodder/showmark
 
 .. |license| image:: https://img.shields.io/github/license/jwodder/showmark.svg
     :target: https://opensource.org/licenses/MIT
@@ -132,7 +135,7 @@ resulting in it being served by the built-in Apache server (already enabled) at
     socket = /tmp/org.varonathe.showmark.sock
     # Replace the below with your own search path:
     env = FLASK_SHOWMARK_SEARCH_PATH=/Users/jwodder/work
-    module = showmark.app:app
+    module = showmark.app:create_app()
     virtualenv = /Library/WebServer/Documents/venvs/showmark
     manage-script-name = true
     need-app = true
