@@ -149,8 +149,8 @@ class Extension:
     def inner_render(
         self, path: Path, *, parser: Parser | None = None, settings: dict[str, Any]
     ) -> Markup:
-        with path.open(encoding="utf-8") as fp:
-            try:
+        try:
+            with path.open(encoding="utf-8") as fp:
                 parts = publish_parts(
                     source=fp,
                     source_class=FileInput,
@@ -158,8 +158,10 @@ class Extension:
                     parser=parser,
                     settings_overrides=settings,
                 )
-            except SystemMessage as e:
-                raise RenderError(msg=str(e))
+        except (OSError, UnicodeDecodeError) as e:
+            raise ReadError(path=path, inner=e)
+        except SystemMessage as e:
+            raise RenderError(msg=str(e))
         body = parts["html_body"]
         assert isinstance(body, str)
         return Markup(body)
@@ -191,6 +193,15 @@ class RenderError(Exception):
 
     def __str__(self) -> str:
         return self.msg
+
+
+@dataclass
+class ReadError(Exception):
+    path: Path
+    inner: Exception
+
+    def __str__(self) -> str:
+        return f"{self.path}: {self.inner}"
 
 
 def showmark_imprint() -> Markup:

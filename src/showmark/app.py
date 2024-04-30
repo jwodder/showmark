@@ -2,7 +2,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 from flask import Flask, render_template, request
-from . import NotFound, RenderError, Showmark, UnsupportedExtension
+from . import NotFound, ReadError, RenderError, Showmark, UnsupportedExtension
 
 app = Flask(__name__)
 app.config["SHOWMARK_SEARCH_PATH"] = str(Path.home())
@@ -31,6 +31,8 @@ def root() -> str:
             return render_template("not-found.html")
         except UnsupportedExtension as e:
             return render_template("not-markup.html", msg=str(e))
+        except ReadError as e:
+            return render_template("read-error.html", path=e.path, msg=str(e.inner))
         except RenderError as e:
             return render_template("rendering-error.html", msg=str(e))
         else:

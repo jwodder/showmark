@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block above_form %}
+<h2 style="color: red">Error Reading File</h2>
+<div><span style="font-weight: bold">Path:</span> <code>{{path}}</code></div>
+<div style="font-weight: bold">Message:</div>
+<pre><code>{{msg}}</code></pre>
+{% endblock %}
+
+{% block content %}{% endblock %}
