@@ -68,7 +68,7 @@ resulting in it being served by the built-in Apache server (already enabled) at
     socket = /tmp/org.varonathe.showmark.sock
     # Replace the below with your own search path:
     env = FLASK_SHOWMARK_SEARCH_PATH=/Users/jwodder/work
-    module = showmark:app
+    module = showmark.app:app
     virtualenv = /Library/WebServer/Documents/venvs/showmark
     manage-script-name = true
     need-app = true
