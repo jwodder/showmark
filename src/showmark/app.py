@@ -20,7 +20,7 @@ def root() -> str:
     fpath = request.args.get("file")
     action = request.args.get("action", "View")
     if not fpath:
-        return render_template("blank.html")
+        return render_template("nop.html")
     path = Path(fpath)
     if action == "List All":
         return render_template("listall.html", files=[str(p) for p in sm.findall(path)])
@@ -28,12 +28,12 @@ def root() -> str:
         try:
             content = sm.find_and_render(path)
         except NotFound:
-            return render_template("not-found.html")
+            return render_template("errors/not-found.html")
         except UnsupportedExtension as e:
-            return render_template("not-markup.html", path=e.path)
+            return render_template("errors/bad-ext.html", path=e.path)
         except ReadError as e:
-            return render_template("read-error.html", path=e.path, msg=str(e.inner))
+            return render_template("errors/read.html", path=e.path, msg=str(e.inner))
         except RenderError as e:
-            return render_template("rendering-error.html", path=e.path, msg=e.msg)
+            return render_template("errors/render.html", path=e.path, msg=e.msg)
         else:
-            return render_template("rendered.html", content=content)
+            return render_template("view.html", content=content)
