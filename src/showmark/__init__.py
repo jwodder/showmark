@@ -50,33 +50,33 @@ class Showmark:
     def init_app(self, app: Flask) -> None:
         if "showmark" in app.extensions:
             raise RuntimeError("showmark extension already registered on app")
-        app.extensions["showmark"] = Inner.for_app(app)
+        app.extensions["showmark"] = Extension.for_app(app)
         app.add_template_global(showmark_imprint)
 
     @property
-    def inner(self) -> Inner:
+    def ext(self) -> Extension:
         sm = current_app.extensions["showmark"]
-        assert isinstance(sm, Inner)
+        assert isinstance(sm, Extension)
         return sm
 
     def findall(self, path: Path) -> Iterator[Path]:
-        return self.inner.findfile(path)
+        return self.ext.findfile(path)
 
     def find_and_render(self, path: Path) -> str:
-        s = self.inner
-        if (p := next(s.findfile(path), None)) is not None:
-            return s.render(p)
+        x = self.ext
+        if (p := next(x.findfile(path), None)) is not None:
+            return x.render(p)
         else:
             raise NotFound(path)
 
 
 @dataclass
-class Inner:
+class Extension:
     search_paths: list[Path]
     writer_name: str
 
     @classmethod
-    def for_app(cls, app: Flask) -> Inner:
+    def for_app(cls, app: Flask) -> Extension:
         sp = app.config.get("SHOWMARK_SEARCH_PATH", str(Path.home()))
         search_paths = list(map(Path, sp.split(os.pathsep)))
         writer_name = app.config.get("SHOWMARK_WRITER_NAME", "html5")
