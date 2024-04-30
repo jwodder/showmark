@@ -87,19 +87,35 @@ class Extension:
         return cls(search_paths=search_paths, writer_name=writer_name)
 
     def findfile(self, p: Path) -> Iterator[Path]:
-        if p.is_absolute():
-            if p.is_file() and any(p.is_relative_to(sp) for sp in self.search_paths):
-                yield p
+        try:
+            if p.is_absolute():
+                if p.is_file() and any(
+                    p.is_relative_to(sp) for sp in self.search_paths
+                ):
+                    yield p
+                return
+        except OSError:
             return
         dirs = deque(self.search_paths)
         while dirs:
             dirpath = dirs.popleft()
             path = dirpath / p
-            if path.is_file():
-                yield path
-            for sub in sorted(dirpath.iterdir()):
-                if sub.is_dir() and not sub.name.startswith("."):
-                    dirs.append(sub)
+            try:
+                if path.is_file():
+                    yield path
+            except OSError:
+                pass
+            try:
+                subs = sorted(dirpath.iterdir())
+            except OSError:
+                pass
+            else:
+                for sub in subs:
+                    try:
+                        if sub.is_dir() and not sub.name.startswith("."):
+                            dirs.append(sub)
+                    except OSError:
+                        pass
 
     def render(self, path: Path) -> Markup:
         ext = path.suffix.lower()

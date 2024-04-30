@@ -74,6 +74,9 @@ following effects:
   directories in ``SHOWMARK_SEARCH_PATH`` and points to an extant file, that
   file has its contents rendered & displayed.
 
+  Any filesystem errors that occur while traversing or inspecting paths are
+  ignored.
+
 - "List All" — All files matching the input path (using the same rules as for
   "View") are found and displayed as a collection of hyperlinks; clicking on a
   link sends the user to a page displaying that file's rendered contents.

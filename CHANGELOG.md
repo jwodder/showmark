@@ -5,6 +5,7 @@ In Development
 - Ignore non-files that match the input path
 - Check for unsupported file extensions before searching
 - The text field is now "sticky"
+- Ignore filesystem errors that occur while traversing directories
 
 v2024.4.29
 ----------
