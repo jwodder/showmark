@@ -80,14 +80,14 @@ class Inner:
 
     def findfile(self, p: Path) -> Iterator[Path]:
         if p.is_absolute():
-            if p.exists() and any(p.is_relative_to(sp) for sp in self.search_paths):
+            if p.is_file() and any(p.is_relative_to(sp) for sp in self.search_paths):
                 yield p
             return
         dirs = deque(self.search_paths)
         while dirs:
             dirpath = dirs.popleft()
             path = dirpath / p
-            if path.exists():
+            if path.is_file():
                 yield path
             for sub in sorted(dirpath.iterdir()):
                 if sub.is_dir() and not sub.name.startswith("."):
