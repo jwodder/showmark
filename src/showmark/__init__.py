@@ -47,6 +47,7 @@ class Showmark:
         if "showmark" in app.extensions:
             raise RuntimeError("showmark extension already registered on app")
         app.extensions["showmark"] = Inner.for_app(app)
+        app.add_template_global(showmark_imprint)
 
     @property
     def inner(self) -> Inner:
@@ -162,3 +163,7 @@ class RenderError(Exception):
 
     def __str__(self) -> str:
         return self.msg
+
+
+def showmark_imprint() -> Markup:
+    return Markup(f'<a href="{__url__}">showmark</a> v{__version__}')
