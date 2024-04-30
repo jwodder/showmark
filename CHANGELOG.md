@@ -8,6 +8,7 @@ In Development
 - Ignore filesystem errors that occur while traversing directories
 - Catch errors from opening or reading files
 - Added basic tests of the views
+- Left-align the input form instead of centering it
 
 v2024.4.29
 ----------

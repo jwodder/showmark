@@ -14,13 +14,13 @@
 
 {% block above_form %}{% endblock %}
 
+<p>
 <form method="get">
-<center>
 <input type="text" name="file" size="20" value="{{request.args.get('file', '')}}"/>
 <input type="submit" name="action" value="View"/>
 <input type="submit" name="action" value="List All"/>
-</center>
 </form>
+</p>
 
 {% block content %}{% endblock %}
 
