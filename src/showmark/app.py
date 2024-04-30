@@ -18,7 +18,7 @@ sm.init_app(app)
 @app.get("/")
 def root() -> str:
     fpath = request.args.get("file")
-    action = request.args.get("action", "Render")
+    action = request.args.get("action", "View")
     if not fpath:
         return render_template("blank.html")
     path = Path(fpath)
