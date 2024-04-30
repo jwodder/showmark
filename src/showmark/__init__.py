@@ -1,6 +1,10 @@
 """
 Serve rendered markup documents
 
+``showmark`` is a Flask application for viewing rendered markup documents
+located on a web server in a browser.  It was developed solely for my personal
+use and is not intended to be consumed generally; use it at your own risk.
+
 Visit <https://github.com/jwodder/showmark> for more information.
 """
 

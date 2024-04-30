@@ -16,8 +16,68 @@
 
 `GitHub <https://github.com/jwodder/showmark>`_
 | `Issues <https://github.com/jwodder/showmark/issues>`_
+| `Changelog <https://github.com/jwodder/showmark/blob/master/CHANGELOG.md>`_
 
-.. TODO: Insert long description here
+``showmark`` is a Flask application for viewing rendered markup documents in a
+browser.  It was developed solely for my personal use and is not intended to be
+consumed generally; use it at your own risk.  In particular, it allows viewing
+files located on the system where the Flask application runs; it is the
+administrator's responsibility to secure this access appropriately.
+
+``showmark`` supports the following markup formats, recognized by file
+extension (case insensitive):
+
+- reStructuredText_ (``.rst``) — rendered using docutils_
+
+- Markdown (superset of CommonMark_) (``.md``) — rendered using myst-parser_
+
+  - The following `parser extensions`_ are enabled:
+
+    - ``deflist``
+    - ``dollarmath``
+    - ``linkify``
+    - ``replacements``
+    - ``smartquotes``
+
+.. _reStructuredText: https://docutils.sourceforge.io/rst.html
+.. _docutils: https://docutils.sourceforge.io
+.. _CommonMark: https://commonmark.org
+.. _myst-parser: https://myst-parser.readthedocs.io
+.. _parser extensions: https://myst-parser.readthedocs.io/en/latest/syntax/optional.html
+
+
+Installation
+============
+``showmark`` requires Python 3.10 or higher.  Just use `pip
+<https://pip.pypa.io>`_ for Python 3 (You have pip, right?) to install it::
+
+    python3 -m pip install git+https://github.com/jwodder/showmark.git
+
+
+Web Application
+===============
+
+The ``showmark`` web application consists of a single page.  At the top of this
+page is a form with an input box, a "View" button, and a "List All" button.
+The user is expected to enter a file path (bare basename, relative path, or
+absolute path) in the input box, after which pressing the buttons has the
+following effects:
+
+- "View" — If the path supplied in the input box is a basename or relative
+  path, then ``showmark`` performs a breadth-first traversal of each directory
+  specified in the ``SHOWMARK_SEARCH_PATH`` configuration option (see below) in
+  turn, looking for a directory to which appending the input path results in an
+  extant file path; the first such file found has its contents rendered &
+  displayed.
+
+  If the input path is absolute, then if it also begins with one of the
+  directories in ``SHOWMARK_SEARCH_PATH`` and points to an extant file, that
+  file has its contents rendered & displayed.
+
+- "List All" — All files matching the input path (using the same rules as for
+  "View") are found and displayed as a collection of hyperlinks; clicking on a
+  link sends the user to a page displaying that file's rendered contents.
+
 
 Configuration
 =============
@@ -28,8 +88,9 @@ environment variable ``SHOWMARK_SETTINGS`` and/or by setting each option as an
 environment variable ``FLASK_{name}``.
 
 ``SHOWMARK_SEARCH_PATH``
-    An ``os.pathsep``-separated list of directories to search for filenames.
-    Defaults to the user's home directory.
+    An ``os.pathsep``-separated list of directories (located on the system on
+    which the application runs) to search for files to render.  Defaults to the
+    user's home directory.
 
 ``SHOWMARK_WRITER_NAME``
     The name of the docutils writer to use for rendering markup.  Defaults to
@@ -97,3 +158,16 @@ resulting in it being served by the built-in Apache server (already enabled) at
         ProxyPass /showmark unix:/tmp/org.varonathe.showmark.sock|uwsgi://showmark/
 
 - Restart Apache: ``sudo apachectl restart``
+
+Updating
+--------
+
+After installing ``showmark`` as shown above, the package can be updated to a
+newer version by running:
+
+.. code:: shell
+
+    /Library/WebServer/Documents/venvs/showmark/bin/pip install --upgrade \
+        git+https://github.com/jwodder/showmark.git
+
+    sudo brew services restart uwsgi
