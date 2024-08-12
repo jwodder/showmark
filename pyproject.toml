@@ -38,7 +38,7 @@ classifiers = [
 dependencies = [
     "docutils",
     "Flask ~= 3.0",
-    "myst-parser[linkify] ~= 3.0",
+    "myst-parser[linkify] ~= 4.0",
     "pygments",
 ]
 
