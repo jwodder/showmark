@@ -1,3 +1,7 @@
+In Development
+--------------
+- Removed CSS styles for unused IDs
+
 v2024.4.30
 ----------
 - Rewrote the searching & rendering functionality as a Flask extension
