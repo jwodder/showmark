@@ -1290,6 +1290,15 @@ table:not(.footnote):not(.citation):not(.booktabs):not(.borderless) {
     border-style: solid;
     border-width: 1px;
 }
+
+table td.text-center, table th.text-center {
+    text-align: center;
+}
+
+table td.text-right, table th.text-right {
+    text-align: right;
+}
+
 /* Styles derived from <https://github.com/pallets/pallets-sphinx-themes>
  *
  * License:
