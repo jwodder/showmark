@@ -31,7 +31,12 @@ def root() -> str:
         return render_template("nop.html")
     path = Path(fpath)
     if action == "List All":
-        return render_template("listall.html", files=[str(p) for p in sm.findall(path)])
+        try:
+            files = [str(p) for p in sm.findall(path)]
+        except UnsupportedExtension as e:
+            return render_template("errors/bad-ext.html", path=e.path)
+        else:
+            return render_template("listall.html", files=files)
     else:
         try:
             content = sm.find_and_render(path)

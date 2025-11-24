@@ -69,3 +69,9 @@ def test_listall(client: FlaskClient) -> None:
     rv = client.get("/", query_string={"file": "hello.md", "action": "List All"})
     assert rv.status_code == 200
     assert "files/hello.md" in rv.text
+
+
+def test_listall_bad_ext(client: FlaskClient) -> None:
+    rv = client.get("/", query_string={"file": "hello.txt", "action": "List All"})
+    assert rv.status_code == 200
+    assert "Unsupported/invalid markup file extension" in rv.text

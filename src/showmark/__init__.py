@@ -60,6 +60,8 @@ class Showmark:
         return sm
 
     def findall(self, path: Path) -> Iterator[Path]:
+        if path.suffix.lower() not in Extension.RENDERERS:
+            raise UnsupportedExtension(path)
         return self.ext.findfile(path)
 
     def find_and_render(self, path: Path) -> str:
