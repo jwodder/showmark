@@ -1,6 +1,7 @@
 In Development
 --------------
 - Removed CSS styles for unused IDs
+- Add CSS styles for centered & right-aligned columns of Markdown tables
 
 v2024.4.30
 ----------
