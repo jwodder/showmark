@@ -3,6 +3,8 @@ In Development
 - Removed CSS styles for unused IDs
 - Add CSS styles for centered & right-aligned columns of Markdown tables
 - The "List All" action now rejects paths with unsupported file extensions
+- Add `SHOWMARK_EXCLUDE_DIRS` setting for specifying directories not to search
+  for files
 
 v2024.4.30
 ----------

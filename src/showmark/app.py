@@ -14,6 +14,7 @@ def create_app(**kwargs: Any) -> Flask:
     app = Flask(__name__)
     app.config["SHOWMARK_SEARCH_PATH"] = str(Path.home())
     app.config["SHOWMARK_WRITER_NAME"] = "html5"
+    app.config["SHOWMARK_EXCLUDE_DIRS"] = ""
     if "SHOWMARK_SETTINGS" in os.environ:
         app.config.from_envvar("SHOWMARK_SETTINGS")
     app.config.from_prefixed_env()

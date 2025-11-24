@@ -93,10 +93,14 @@ defining them in a Python source file that is then pointed to by the
 environment variable ``SHOWMARK_SETTINGS`` and/or by setting each option as an
 environment variable ``FLASK_{name}``.
 
+``SHOWMARK_EXCLUDE_DIRS``
+    An ``os.pathsep``-separated list of names of directories not to recurse
+    into when searching for files to render.  Defaults to the empty string.
+
 ``SHOWMARK_SEARCH_PATH``
-    An ``os.pathsep``-separated list of directories (located on the system on
-    which the application runs) to search for files to render.  Defaults to the
-    user's home directory.
+    An ``os.pathsep``-separated list of paths to directories (located on the
+    system on which the application runs) to search for files to render.
+    Defaults to the user's home directory.
 
 ``SHOWMARK_WRITER_NAME``
     The name of the docutils writer to use for rendering markup.  Defaults to
@@ -133,8 +137,9 @@ resulting in it being served by the built-in Apache server (already enabled) at
     [uwsgi]
     plugin = python3
     socket = /tmp/org.varonathe.showmark.sock
-    # Replace the below with your own search path:
+    # Replace the below with your own settings:
     env = FLASK_SHOWMARK_SEARCH_PATH=/Users/jwodder/work
+    env = FLASK_SHOWMARK_EXCLUDE_DIRS=_build:build:clones:forks:target:venv
     module = showmark.app:create_app()
     virtualenv = /Library/WebServer/Documents/venvs/showmark
     manage-script-name = true

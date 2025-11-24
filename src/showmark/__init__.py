@@ -80,13 +80,21 @@ class Extension:
 
     search_paths: list[Path]
     writer_name: str
+    exclude_dirs: set[str]
 
     @classmethod
     def for_app(cls, app: Flask) -> Extension:
         sp = app.config.get("SHOWMARK_SEARCH_PATH", str(Path.home()))
         search_paths = list(map(Path, sp.split(os.pathsep)))
         writer_name = app.config.get("SHOWMARK_WRITER_NAME", "html5")
-        return cls(search_paths=search_paths, writer_name=writer_name)
+        exclude_dirs = set(
+            app.config.get("SHOWMARK_EXCLUDE_DIRS", "").split(os.pathsep)
+        )
+        return cls(
+            search_paths=search_paths,
+            writer_name=writer_name,
+            exclude_dirs=exclude_dirs,
+        )
 
     def findfile(self, p: Path) -> Iterator[Path]:
         try:
@@ -114,7 +122,11 @@ class Extension:
             else:
                 for sub in subs:
                     try:
-                        if sub.is_dir() and not sub.name.startswith("."):
+                        if (
+                            sub.is_dir()
+                            and not sub.name.startswith(".")
+                            and sub.name not in self.exclude_dirs
+                        ):
                             dirs.append(sub)
                     except OSError:
                         pass
