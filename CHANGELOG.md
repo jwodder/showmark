@@ -1,5 +1,5 @@
-In Development
---------------
+v2026.6.8
+---------
 - Removed CSS styles for unused IDs
 - Add CSS styles for centered & right-aligned columns of Markdown tables
 - The "List All" action now rejects paths with unsupported file extensions
