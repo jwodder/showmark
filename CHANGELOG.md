@@ -5,6 +5,8 @@ In Development
 - The "List All" action now rejects paths with unsupported file extensions
 - Add `SHOWMARK_EXCLUDE_DIRS` setting for specifying directories not to search
   for files
+- Update MyST-Parser to v5.1
+- Drop support for Python 3.10
 
 v2024.4.30
 ----------

@@ -7,7 +7,7 @@ name = "showmark"
 dynamic = ["version"]
 description = "Serve rendered markup documents"
 readme = "README.rst"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [

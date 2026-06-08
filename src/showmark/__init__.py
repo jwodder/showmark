@@ -168,7 +168,7 @@ class Extension:
                 parts = publish_parts(
                     source=fp,
                     source_class=FileInput,
-                    writer_name=self.writer_name,
+                    writer=self.writer_name,
                     parser=parser,
                     settings_overrides=settings,
                 )
