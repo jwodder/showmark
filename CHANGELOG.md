@@ -1,3 +1,7 @@
+In Development
+--------------
+- Support Python 3.15
+
 v2026.6.8
 ---------
 - Removed CSS styles for unused IDs
